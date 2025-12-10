@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang='es'>
+<head>  
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Percepción de utilidad y frecuencia de uso de IA en Psicología</title>
+    <script src='https://cdn.tailwindcss.com'></script>
+    <link href='https://fonts.googleapis.com/css2?family=Coda&family=Hedvig+Letters+Sans&family=Jersey+15&family=Jersey+20+Charted&family=Liter&family=Luckiest+Guy&family=Oranienbaum&family=Press+Start+2P&family=Quattrocento+Sans&family=Sorts+Mill+Goudy&family=Unna&display=swap' rel='stylesheet'>
+    <link href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css' rel='stylesheet'>
+    <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/echarts@5.4.0/dist/echarts.min.js'></script>
+    <script src='https://cdn.jsdmirror.com/npm/mathjax@3.2.2/es5/tex-svg.min.js'></script>
+    <style type='text/tailwindcss'>
+        @layer utilities {
+            .ppt-slide {
+                @apply relative w-[992px] h-[558px] mx-auto p-[30px] box-border overflow-hidden mb-[40px] bg-[#FAFBFC];
+            }
+        }
+    </style>
+</head>
+
+<body class='bg-gray-50 py-8'>
+    <!-- Diapositiva 1: Portada -->
+    <div class='ppt-slide flex flex-col justify-center' style='background: linear-gradient(135deg, #1B365D 0%, #2C5F7F 100%);'>
+        <div class='w-full text-white'>
+            <h1 class='text-6xl font-bold mb-6' style='font-family: Sorts Mill Goudy, serif; line-height: 1.2;'>
+                Percepción de utilidad y frecuencia de uso de herramientas de inteligencia artificial en estudiantes de Psicología
+            </h1>
+            <div class='w-24 h-1 bg-[#D4AF37] mb-8'></div>
+            <p class='text-2xl mb-4' style='font-family: Oranienbaum, serif;'>Tu nombre</p>
+            <p class='text-xl opacity-90' style='font-family: Oranienbaum, serif;'>Licenciatura en Psicología – UNIVDEP</p>
+            <p class='text-lg opacity-80 mt-4' style='font-family: Oranienbaum, serif;'>Materia, Docente, Fecha</p>
+        </div>
+    </div>
+    
+    <!-- Diapositiva 2: Contexto y planteamiento del problema -->
+    <div class='ppt-slide flex items-center'>
+        <div class='w-1/3 text-center'>
+            <i class='fas fa-brain text-8xl text-[#1B365D] opacity-20 mb-6'></i>
+            <p class='text-lg text-[#4A5568]' style='font-family: Oranienbaum, serif;'>Transformación digital en la educación superior</p>
+        </div>
+        <div class='w-2/3 pl-16'>
+            <h2 class='text-5xl font-bold text-[#1B365D] mb-10' style='font-family: Sorts Mill Goudy, serif;'>Contexto y problema</h2>
+            <div class='space-y-8'>
+                <div class='flex items-start'>
+                    <div class='text-5xl font-bold text-[#D4AF37] mr-6' style='font-family: Sorts Mill Goudy, serif;'>1</div>
+                    <p class='text-xl text-[#2D3748] leading-relaxed pt-1' style='font-family: Oranienbaum, serif;'>Creciente uso de IA (chatbots, asistentes de texto) en la universidad.</p>
+                </div>
+                <div class='flex items-start'>
+                    <div class='text-5xl font-bold text-[#D4AF37] mr-6' style='font-family: Sorts Mill Goudy, serif;'>2</div>
+                    <p class='text-xl text-[#2D3748] leading-relaxed pt-1' style='font-family: Oranienbaum, serif;'>Papel potencial en Psicología: apoyo al estudio, trabajos, presentaciones.</p>
+                </div>
+                <div class='flex items-start'>
+                    <div class='text-5xl font-bold text-[#D4AF37] mr-6' style='font-family: Sorts Mill Goudy, serif;'>3</div>
+                    <p class='text-xl text-[#2D3748] leading-relaxed pt-1' style='font-family: Oranienbaum, serif;'>Falta de datos sobre cómo los estudiantes de Psicología la perciben y la usan.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Diapositiva 3: Preguntas de investigación -->
+    <div class='ppt-slide flex flex-col justify-center'>
+        <h2 class='text-5xl font-bold text-[#1B365D] mb-10 text-center' style='font-family: Sorts Mill Goudy, serif;'>Preguntas de investigación</h2>
+        <div class='grid grid-cols-2 gap-x-12 gap-y-6'>
+            <div class='flex items-start space-x-4'>
+                <span class='text-2xl font-bold text-[#1B365D]'>1.</span>
+                <p class='text-lg text-[#2D3748] leading-snug' style='font-family: Oranienbaum, serif;'>¿Qué nivel de percepción de utilidad de la IA presentan los estudiantes de Psicología?</p>
+            </div>
+            <div class='flex items-start space-x-4'>
+                <span class='text-2xl font-bold text-[#1B365D]'>2.</span>
+                <p class='text-lg text-[#2D3748] leading-snug' style='font-family: Oranienbaum, serif;'>¿Con qué frecuencia utilizan herramientas de IA en sus actividades académicas?</p>
+            </div>
+            <div class='flex items-start space-x-4'>
+                <span class='text-2xl font-bold text-[#1B365D]'>3.</span>
+                <p class='text-lg text-[#2D3748] leading-snug' style='font-family: Oranienbaum, serif;'>¿Cuál es la relación entre percepción de utilidad y frecuencia de uso?</p>
+            </div>
+            <div class='flex items-start space-x-4'>
+                <span class='text-2xl font-bold text-[#1B365D]'>4.</span>
+                <p class='text-lg text-[#2D3748] leading-snug' style='font-family: Oranienbaum, serif;'>¿Cómo describen los estudiantes su percepción de riesgos éticos y académicos?</p>
+            </div>
+        </div>
+        <div class='mt-10 border-t border-gray-200 pt-4'>
+            <p class='text-lg text-[#4A5568] italic text-center' style='font-family: Oranienbaum, serif;'>A partir de estos datos surgen preguntas adicionales sobre patrones de uso diferenciados...</p>
+        </div>
+    </div>
+    
+    <!-- Diapositiva 4: Objetivos e hipótesis -->
+    <div class='ppt-slide flex flex-col justify-center'>
+        <h2 class='text-5xl font-bold text-[#1B365D] mb-12 text-center' style='font-family: Sorts Mill Goudy, serif;'>Objetivos e hipótesis</h2>
+        <div class='grid grid-cols-2 gap-12'>
+            <div>
+                <h3 class='text-3xl font-bold text-[#1B365D] mb-4' style='font-family: Sorts Mill Goudy, serif;'>Objetivo general</h3>
+                <p class='text-lg text-[#2D3748] leading-relaxed' style='font-family: Oranienbaum, serif;'>Analizar la relación entre percepción de utilidad y frecuencia de uso de IA en estudiantes de Psicología, describiendo además la percepción de riesgos éticos y académicos.</p>
+            </div>
+            <div>
+                <h3 class='text-3xl font-bold text-[#1B365D] mb-4' style='font-family: Sorts Mill Goudy, serif;'>Hipótesis</h3>
+                <div class='space-y-4'>
+                    <div class='p-4 bg-[#1B365D0D] rounded-lg'>
+                        <p class='text-lg text-[#1B365D] font-semibold' style='font-family: Oranienbaum, serif;'>H₁: A mayor percepción de utilidad, mayor frecuencia de uso.</p>
+                    </div>
+                    <div class='p-4 bg-gray-100 rounded-lg'>
+                        <p class='text-lg text-[#4A5568]' style='font-family: Oranienbaum, serif;'>H₀: No existe relación significativa.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Diapositiva 5: Marco teórico sintético -->
+    <div class='ppt-slide flex flex-col justify-center'>
+        <h2 class='text-5xl font-bold text-[#1B365D] mb-12 text-center' style='font-family: Sorts Mill Goudy, serif;'>Marco teórico</h2>
+        <div class='grid grid-cols-3 gap-8'>
+            <div class='flex flex-col items-center text-center p-4'>
+                <i class='fas fa-graduation-cap text-5xl text-[#1B365D] mb-4'></i>
+                <h3 class='text-2xl font-bold text-[#1B365D] mb-4' style='font-family: Sorts Mill Goudy, serif;'>IA en educación</h3>
+                <p class='text-base text-[#2D3748]' style='font-family: Oranienbaum, serif;'>Herramienta para búsqueda de información, resúmenes y apoyo en redacción.</p>
+            </div>
+            <div class='flex flex-col items-center text-center p-4 border-x-2 border-gray-200'>
+                <i class='fas fa-chart-line text-5xl text-[#D4AF37] mb-4'></i>
+                <h3 class='text-2xl font-bold text-[#1B365D] mb-4' style='font-family: Sorts Mill Goudy, serif;'>Modelos de adopción</h3>
+                <p class='text-base text-[#2D3748]' style='font-family: Oranienbaum, serif;'>Utilidad percibida → Uso. Los estudiantes adoptan tecnología que perciben como útil.</p>
+            </div>
+            <div class='flex flex-col items-center text-center p-4'>
+                <i class='fas fa-exclamation-triangle text-5xl text-[#D4AF37] mb-4'></i>
+                <h3 class='text-2xl font-bold text-[#1B365D] mb-4' style='font-family: Sorts Mill Goudy, serif;'>Riesgos identificados</h3>
+                <p class='text-base text-[#2D3748]' style='font-family: Oranienbaum, serif;'>Plagio, dependencia, información inexacta, pérdida de pensamiento crítico.</p>
+            </div>
+        </div>
+        <div class='mt-10 border-t border-gray-200 pt-4'>
+            <p class='text-lg text-[#4A5568] italic text-center' style='font-family: Oranienbaum, serif;'>Cruzando utilidad y riesgo para comprender el fenómeno en su complejidad.</p>
+        </div>
+    </div>
+    
+    <!-- Diapositiva 6: Método -->
+    <div class='ppt-slide flex items-center gap-12'>
+        <div class='w-1/2 flex flex-col justify-center'>
+            <h2 class='text-5xl font-bold text-[#1B365D] mb-10' style='font-family: Sorts Mill Goudy, serif;'>Método</h2>
+            <div class='space-y-6'>
+                <div class='flex items-center space-x-5'>
+                    <div class='w-3 h-3 bg-[#D4AF37] rounded-full'></div>
+                    <span class='text-2xl text-[#2D3748]' style='font-family: Oranienbaum, serif;'>Enfoque: <span class='bg-[#D4AF3733]' style='color: #1B365D;'>Cuantitativo</span></span>
+                </div>
+                <div class='flex items-center space-x-5'>
+                    <div class='w-3 h-3 bg-[#D4AF37] rounded-full'></div>
+                    <span class='text-2xl text-[#2D3748]' style='font-family: Oranienbaum, serif;'>Tipo: <span class='bg-[#D4AF3733]' style='color: #1B365D;'>Descriptivo-correlacional</span></span>
+                </div>
+                <div class='flex items-center space-x-5'>
+                    <div class='w-3 h-3 bg-[#D4AF37] rounded-full'></div>
+                    <span class='text-2xl text-[#2D3748]' style='font-family: Oranienbaum, serif;'>Diseño: <span class='bg-[#D4AF3733]' style='color: #1B365D;'>No experimental, transversal</span></span>
+                </div>
+            </div>
+        </div>
+        <div class='w-1/2 flex items-center justify-center p-8'>
+            <div class='text-center bg-white p-10 rounded-2xl shadow-lg'>
+                <i class='fas fa-clipboard-list text-7xl text-[#1B365D] mb-6'></i>
+                <p class='text-xl text-[#2D3748] leading-relaxed' style='font-family: Oranienbaum, serif;'>Cuestionario aplicado una sola vez. <br>Descripción de patrones y análisis de relaciones. <br>Sin manipulación de variables.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Diapositiva 7: Participantes e instrumento -->
+    <div class='ppt-slide flex flex-col justify-center'>
+        <h2 class='text-5xl font-bold text-[#1B365D] mb-12 text-center' style='font-family: Sorts Mill Goudy, serif;'>Participantes e instrumento</h2>
+        <div class='grid grid-cols-2 gap-12'>
+            <div class='border-r pr-12 border-gray-200'>
+                <h3 class='text-3xl font-bold text-[#1B365D] mb-8' style='font-family: Sorts Mill Goudy, serif;'>Participantes</h3>
+                <div class='space-y-4'>
+                    <div class='flex items-center space-x-4'><i class='fas fa-users text-xl text-[#D4AF37]'></i><span class='text-xl text-[#2D3748]' style='font-family: Oranienbaum, serif;'><span class='font-bold'>n = 19</span> estudiantes de Psicología</span></div>
+                    <div class='flex items-center space-x-4'><i class='fas fa-random text-xl text-[#D4AF37]'></i><span class='text-xl text-[#2D3748]' style='font-family: Oranienbaum, serif;'>Muestreo por conveniencia</span></div>
+                </div>
+            </div>
+            <div>
+                <h3 class='text-3xl font-bold text-[#1B365D] mb-8' style='font-family: Sorts Mill Goudy, serif;'>Instrumento</h3>
+                <div class='space-y-4'>
+                    <div class='flex items-center space-x-4'><i class='fas fa-check-circle text-xl text-[#D4AF37]'></i><span class='text-xl text-[#2D3748]' style='font-family: Oranienbaum, serif;'>Cuestionario tipo <span class='bg-[#D4AF3733]' style='color: #1B365D;'>Likert</span> de 3 subescalas</span></div>
+                    <div class='flex items-center space-x-4'><i class='fas fa-chart-bar text-xl text-[#D4AF37]'></i><span class='text-xl text-[#2D3748]' style='font-family: Oranienbaum, serif;'>Frecuencia de uso (B1-B5)</span></div>
+                    <div class='flex items-center space-x-4'><i class='fas fa-lightbulb text-xl text-[#D4AF37]'></i><span class='text-xl text-[#2D3748]' style='font-family: Oranienbaum, serif;'>Utilidad percibida (C1-C6)</span></div>
+                    <div class='flex items-center space-x-4'><i class='fas fa-exclamation-triangle text-xl text-[#D4AF37]'></i><span class='text-xl text-[#2D3748]' style='font-family: Oranienbaum, serif;'>Riesgos percibidos (D1-D4)</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Diapositiva 8: Resultados descriptivos globales CON GRÁFICO -->
+    <div class='ppt-slide flex flex-col justify-center'>
+        <h2 class='text-5xl font-bold text-[#1B365D] mb-8 text-center' style='font-family: Sorts Mill Goudy, serif;'>Resultados descriptivos globales</h2>
+        <div class='flex-1 grid grid-cols-3 gap-8 items-center'>
+            <div class='text-center p-6 bg-white rounded-xl shadow-md'>
+                <h3 class='text-2xl font-bold text-[#1B365D] mb-3' style='font-family: Sorts Mill Goudy, serif;'>Frecuencia de uso</h3>
+                <div class='text-6xl font-bold text-[#1B365D]'>15.79</div>
+                <p class='text-base text-[#4A5568]' style='font-family: Oranienbaum, serif;'>DE = 4.05</p>
+                <div class='mt-4 px-4 py-2 bg-[#D4AF37] text-white rounded-full text-base font-semibold inline-block'>Nivel moderado</div>
+            </div>
+            <div class='text-center p-6 bg-white rounded-xl shadow-md'>
+                <h3 class='text-2xl font-bold text-[#1B365D] mb-3' style='font-family: Sorts Mill Goudy, serif;'>Utilidad percibida</h3>
+                <div class='text-6xl font-bold text-[#1B365D]'>20.00</div>
+                <p class='text-base text-[#4A5568]' style='font-family: Oranienbaum, serif;'>DE = 4.15</p>
+                <div class='mt-4 px-4 py-2 bg-[#D4AF37] text-white rounded-full text-base font-semibold inline-block'>Nivel moderado</div>
+            </div>
+            <div class='text-center p-6 bg-white rounded-xl shadow-md border-2 border-[#D4AF37]'>
+                <h3 class='text-2xl font-bold text-[#1B365D] mb-3' style='font-family: Sorts Mill Goudy, serif;'>Riesgo percibido</h3>
+                <div class='text-6xl font-bold text-[#D4AF37]'>16.11</div>
+                <p class='text-base text-[#4A5568]' style='font-family: Oranienbaum, serif;'>DE = 2.96</p>
+                <div class='mt-4 px-4 py-2 bg-[#D4AF37] text-white rounded-full text-base font-semibold inline-block'>Nivel ALTO</div>
+            </div>
+        </div>
+        <div class='mt-6 text-center border-t border-gray-200 pt-4'>
+            <p class='text-lg text-[#4A5568] italic' style='font-family: Oranienbaum, serif;'>¿Por qué la preocupación por los riesgos es tan alta si la utilidad percibida es moderada?</p>
+            <div class='mt-4 p-4 bg-blue-50 rounded-lg'>
+                <p class='text-sm text-[#1B365D]' style='font-family: Oranienbaum, serif;'>📊 <strong>Archivo:</strong> resultados_descriptivos.html</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Diapositiva 9: Patrones de uso CON GRÁFICO -->
+    <div class='ppt-slide flex flex-col justify-center'>
+        <h2 class='text-5xl font-bold text-[#1B365D] mb-10 text-center' style='font-family: Sorts Mill Goudy, serif;'>Patrones de uso: ¿quiénes y para qué?</h2>
+        <div class='grid grid-cols-2 gap-12'>
+            <div>
+                <h3 class='text-3xl font-bold text-[#1B365D] mb-6' style='font-family: Sorts Mill Goudy, serif;'>Actividades más frecuentes</h3>
+                <div class='space-y-4'>
+                    <div class='flex items-center justify-between p-4 bg-white rounded-lg shadow-sm'>
+                        <span class='text-lg text-[#2D3748]' style='font-family: Oranienbaum, serif;'>Aclarar dudas teóricas (B1)</span>
+                        <div class='w-32 bg-gray-200 rounded-full h-2.5'><div class='bg-[#1B365D] h-2.5 rounded-full' style='width: 85%'></div></div>
+                    </div>
+                    <div class='flex items-center justify-between p-4 bg-white rounded-lg shadow-sm'>
+                        <span class='text-lg text-[#2D3748]' style='font-family: Oranienbaum, serif;'>Obtener ejemplos o casos (B4)</span>
+                        <div class='w-32 bg-gray-200 rounded-full h-2.5'><div class='bg-[#1B365D] h-2.5 rounded-full' style='width: 78%'></div></div>
+                    </div>
+                    <div class='flex items-center justify-between p-4 bg-white rounded-lg shadow-sm'>
+                        <span class='text-lg text-[#2D3748]' style='font-family: Oranienbaum, serif;'>Preparar presentaciones (B5)</span>
+                        <div class='w-32 bg-gray-200 rounded-full h-2.5'><div class='bg-[#1B365D] h-2.5 rounded-full' style='width: 72%'></div></div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h3 class='text-3xl font-bold text-[#1B365D] mb-6' style='font-family: Sorts Mill Goudy, serif;'>Análisis por grupos</h3>
+                <div class='space-y-6'>
+                    <div class='p-6 bg-white rounded-xl shadow-md'>
+                        <h4 class='text-xl font-semibold text-[#1B365D] mb-3' style='font-family: Sorts Mill Goudy, serif;'>Comparación por sexo</h4>
+                        <p class='text-base text-[#2D3748]' style='font-family: Oranienbaum, serif;'>Análisis de diferencias en frecuencia de uso entre grupos.</p>
+                    </div>
+                    <div class='p-6 bg-white rounded-xl shadow-md'>
+                        <h4 class='text-xl font-semibold text-[#1B365D] mb-3' style='font-family: Sorts Mill Goudy, serif;'>Comparación por semestre</h4>
+                        <p class='text-base text-[#2D3748]' style='font-family: Oranienbaum, serif;'>¿Los estudiantes avanzados usan más IA?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class='mt-8 text-center border-t border-gray-200 pt-4'>
+            <p class='text-lg text-[#4A5568] italic' style='font-family: Oranienbaum, serif;'>📊 <strong>Archivo:</strong> patrones_uso.html</p>
+        </div>
+    </div>
+    
+    <!-- Diapositiva 10: Utilidad percibida -->
+    <div class='ppt-slide flex flex-col justify-center'>
+        <h2 class='text-5xl font-bold text-[#1B365D] mb-10 text-center' style='font-family: Sorts Mill Goudy, serif;'>¿La IA ayuda a aprender Psicología?</h2>
+        <div class='grid grid-cols-2 gap-12'>
+            <div class='flex flex-col justify-center space-y-6'>
+                <div class='p-5 bg-white rounded-lg shadow-sm'>
+                    <div class='flex items-center space-x-4'><i class='fas fa-check-circle text-2xl text-[#D4AF37]'></i><span class='text-xl font-semibold text-[#1B365D]' style='font-family: Sorts Mill Goudy, serif;'>Comprender contenidos (C1)</span></div>
+                </div>
+                <div class='p-5 bg-white rounded-lg shadow-sm'>
+                    <div class='flex items-center space-x-4'><i class='fas fa-check-circle text-2xl text-[#D4AF37]'></i><span class='text-xl font-semibold text-[#1B365D]' style='font-family: Sorts Mill Goudy, serif;'>Estudiar eficientemente (C4)</span></div>
+                </div>
+                <div class='p-5 bg-white rounded-lg shadow-sm'>
+                    <div class='flex items-center space-x-4'><i class='fas fa-check-circle text-2xl text-[#D4AF37]'></i><span class='text-xl font-semibold text-[#1B365D]' style='font-family: Sorts Mill Goudy, serif;'>Profundizar en temas (C5)</span></div>
+                </div>
+            </div>
+            <div class='flex flex-col justify-center bg-[#1B365D0D] p-8 rounded-2xl'>
+                <h3 class='text-3xl font-bold text-[#1B365D] mb-6' style='font-family: Sorts Mill Goudy, serif;'>Hallazgos clave</h3>
+                <div class='space-y-4 text-lg text-[#2D3748]' style='font-family: Oranienbaum, serif;'>
+                    <p>• Mayoría de respuestas en rangos <span class='bg-[#D4AF3733]' style='color: #1B365D;'>medios y altos</span>.</p>
+                    <p>• Más de un tercio en <span class='bg-[#D4AF3733]' style='color: #1B365D;'>"de acuerdo" o "totalmente de acuerdo"</span>.</p>
+                    <p>• Utilidad percibida correlaciona con frecuencia de uso.</p>
+                </div>
+            </div>
+        </div>
+        <div class='mt-8 text-center border-t border-gray-200 pt-4'>
+            <p class='text-lg text-[#4A5568] italic' style='font-family: Oranienbaum, serif;'>Espacio para gráfico de barras con porcentajes de respuestas 4-5 por ítem de utilidad</p>
+        </div>
+    </div>
+    
+    <!-- Diapositiva 11: Riesgos percibidos -->
+    <div class='ppt-slide flex flex-col justify-center'>
+        <h2 class='text-5xl font-bold text-[#1B365D] mb-10 text-center' style='font-family: Sorts Mill Goudy, serif;'>Percepción de riesgos éticos y académicos</h2>
+        <div class='grid grid-cols-2 gap-12'>
+            <div class='space-y-6'>
+                <div class='p-5 bg-white rounded-lg shadow-sm border-l-4 border-[#D4AF37]'>
+                    <div class='flex items-center justify-between'><h3 class='text-xl font-semibold text-[#1B365D]' style='font-family: Sorts Mill Goudy, serif;'>Plagio (D1)</h3><span class='text-2xl font-bold text-[#D4AF37]'>Alto</span></div>
+                </div>
+                <div class='p-5 bg-white rounded-lg shadow-sm border-l-4 border-[#D4AF37]'>
+                    <div class='flex items-center justify-between'><h3 class='text-xl font-semibold text-[#1B365D]' style='font-family: Sorts Mill Goudy, serif;'>Dependencia (D2)</h3><span class='text-2xl font-bold text-[#D4AF37]'>Alto</span></div>
+                </div>
+                <div class='p-5 bg-white rounded-lg shadow-sm border-l-4 border-[#D4AF37]'>
+                    <div class='flex items-center justify-between'><h3 class='text-xl font-semibold text-[#1B365D]' style='font-family: Sorts Mill Goudy, serif;'>Aprendizaje superficial (D4)</h3><span class='text-2xl font-bold text-[#D4AF37]'>Máxima</span></div>
+                </div>
+            </div>
+            <div class='flex flex-col justify-center bg-[#D4AF371A] p-8 rounded-2xl'>
+                <h3 class='text-3xl font-bold text-[#1B365D] mb-6' style='font-family: Sorts Mill Goudy, serif;'>Postura ambivalente</h3>
+                <div class='space-y-4 text-lg text-[#2D3748]' style='font-family: Oranienbaum, serif;'>
+                    <p>• Reconocimiento de <span class='bg-[#D4AF3733]' style='color: #1B365D;'>utilidad moderada</span>.</p>
+                    <p>• Alta preocupación por <span class='bg-[#D4AF3733]' style='color: #1B365D;'>riesgos significativos</span>.</p>
+                    <p>• Conciencia ética del uso académico.</p>
+                </div>
+            </div>
+        </div>
+        <div class='mt-8 text-center border-t border-gray-200 pt-4'>
+            <p class='text-lg text-[#4A5568] italic' style='font-family: Oranienbaum, serif;'>Espacio para gráfico de barras con porcentajes de respuestas 4-5 por ítem de riesgo</p>
+        </div>
+    </div>
+    
+    <!-- Diapositiva 12: Correlación CON GRÁFICO -->
+    <div class='ppt-slide flex flex-col justify-center'>
+        <h2 class='text-5xl font-bold text-[#1B365D] mb-12 text-center' style='font-family: Sorts Mill Goudy, serif;'>Relación entre frecuencia de uso y utilidad percibida</h2>
+        <div class='grid grid-cols-2 gap-12 items-center'>
+            <div class='text-center bg-[#1B365D0D] p-10 rounded-2xl'>
+                <div class='text-8xl font-bold text-[#1B365D]'>r = 0.499</div>
+                <p class='text-2xl text-[#4A5568] mt-2' style='font-family: Oranienbaum, serif;'>p = 0.030</p>
+                <div class='mt-6 px-6 py-3 bg-[#D4AF37] text-white rounded-full text-xl font-semibold inline-block'>Correlación positiva significativa</div>
+            </div>
+            <div class='space-y-6'>
+                <div class='p-6 bg-white rounded-xl shadow-md'>
+                    <h3 class='text-2xl font-bold text-[#1B365D] mb-3' style='font-family: Sorts Mill Goudy, serif;'>Interpretación</h3>
+                    <p class='text-lg text-[#2D3748]' style='font-family: Oranienbaum, serif;'>A mayor utilidad percibida, mayor frecuencia de uso.</p>
+                </div>
+                <div class='p-6 bg-white rounded-xl shadow-md'>
+                    <h3 class='text-2xl font-bold text-[#1B365D] mb-3' style='font-family: Sorts Mill Goudy, serif;'>Magnitud</h3>
+                    <p class='text-lg text-[#2D3748]' style='font-family: Oranienbaum, serif;'>Correlación media (r ≈ 0.5), consistente con modelos de adopción.</p>
+                </div>
+            </div>
+        </div>
+        <div class='mt-8 text-center border-t border-gray-200 pt-4'>
+            <p class='text-lg text-[#4A5568] italic' style='font-family: Oranienbaum, serif;'>📊 <strong>Archivo:</strong> correlacion.html</p>
+        </div>
+    </div>
+    
+    <!-- Diapositiva 13: Discusión -->
+    <div class='ppt-slide flex flex-col justify-center'>
+        <h2 class='text-5xl font-bold text-[#1B365D] mb-12 text-center' style='font-family: Sorts Mill Goudy, serif;'>Discusión: Integrando las preguntas</h2>
+        <div class='grid grid-cols-3 gap-8'>
+            <div class='bg-white p-6 rounded-xl shadow-lg'>
+                <div class='text-center mb-4'><i class='fas fa-users text-4xl text-[#1B365D]'></i></div>
+                <h3 class='text-2xl font-bold text-[#1B365D] mb-3 text-center' style='font-family: Sorts Mill Goudy, serif;'>¿Quiénes usan más?</h3>
+                <p class='text-base text-[#2D3748] text-center' style='font-family: Oranienbaum, serif;'>Patrón general de uso moderado, con diferencias por grupos.</p>
+            </div>
+            <div class='bg-white p-6 rounded-xl shadow-lg'>
+                <div class='text-center mb-4'><i class='fas fa-balance-scale text-4xl text-[#D4AF37]'></i></div>
+                <h3 class='text-2xl font-bold text-[#1B365D] mb-3 text-center' style='font-family: Sorts Mill Goudy, serif;'>¿Utilidad ∝ Uso?</h3>
+                <p class='text-base text-[#2D3748] text-center' style='font-family: Oranienbaum, serif;'>Sí, correlación positiva media confirma la relación.</p>
+            </div>
+            <div class='bg-white p-6 rounded-xl shadow-lg'>
+                <div class='text-center mb-4'><i class='fas fa-question-circle text-4xl text-[#1B365D]'></i></div>
+                <h3 class='text-2xl font-bold text-[#1B365D] mb-3 text-center' style='font-family: Sorts Mill Goudy, serif;'>¿Ayuda o entorpece?</h3>
+                <p class='text-base text-[#2D3748] text-center' style='font-family: Oranienbaum, serif;'>Apoyo valioso, pero consciente de sus riesgos.</p>
+            </div>
+        </div>
+        <div class='mt-10 border-t border-gray-200 pt-6'>
+            <div class='bg-[#1B365D0D] p-6 rounded-xl'>
+                <h3 class='text-2xl font-bold text-[#1B365D] mb-4 text-center' style='font-family: Sorts Mill Goudy, serif;'>Conclusión integradora</h3>
+                <p class='text-xl text-[#2D3748] leading-relaxed text-center' style='font-family: Oranienbaum, serif;'>Postura <span class='bg-[#D4AF3733]' style='color: #1B365D;'>ambivalente y crítica</span>: los estudiantes usan y valoran la IA, pero reconocen sus riesgos y limitaciones.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Diapositiva 14: Limitaciones y futuras líneas -->
+    <div class='ppt-slide flex flex-col justify-center'>
+        <h2 class='text-5xl font-bold text-[#1B365D] mb-10 text-center' style='font-family: Sorts Mill Goudy, serif;'>Limitaciones y futuras líneas</h2>
+        <div class='grid grid-cols-2 gap-12'>
+            <div>
+                <h3 class='text-3xl font-bold text-[#1B365D] mb-6' style='font-family: Sorts Mill Goudy, serif;'>Limitaciones</h3>
+                <div class='space-y-4'>
+                    <div class='flex items-start space-x-4'><i class='fas fa-exclamation-triangle text-xl text-[#D4AF37] mt-1'></i><p class='text-lg text-[#2D3748]' style='font-family: Oranienbaum, serif;'>Muestra pequeña (n=19) y por conveniencia.</p></div>
+                    <div class='flex items-start space-x-4'><i class='fas fa-clock text-xl text-[#D4AF37] mt-1'></i><p class='text-lg text-[#2D3748]' style='font-family: Oranienbaum, serif;'>Diseño transversal, sin causalidad.</p></div>
+                    <div class='flex items-start space-x-4'><i class='fas fa-clipboard-check text-xl text-[#D4AF37] mt-1'></i><p class='text-lg text-[#2D3748]' style='font-family: Oranienbaum, serif;'>Instrumento propio sin validación amplia.</p></div>
+                </div>
+            </div>
+            <div>
+                <h3 class='text-3xl font-bold text-[#1B365D] mb-6' style='font-family: Sorts Mill Goudy, serif;'>Futuras líneas</h3>
+                <div class='space-y-4'>
+                    <div class='flex items-start space-x-4'><i class='fas fa-expand-arrows-alt text-xl text-[#D4AF37] mt-1'></i><p class='text-lg text-[#2D3748]' style='font-family: Oranienbaum, serif;'>Muestras más grandes y diversas.</p></div>
+                    <div class='flex items-start space-x-4'><i class='fas fa-microscope text-xl text-[#D4AF37] mt-1'></i><p class='text-lg text-[#2D3748]' style='font-family: Oranienbaum, serif;'>Validación psicométrica del cuestionario.</p></div>
+                    <div class='flex items-start space-x-4'><i class='fas fa-balance-scale text-xl text-[#D4AF37] mt-1'></i><p class='text-lg text-[#2D3748]' style='font-family: Oranienbaum, serif;'>Comparación entre carreras/facultades.</p></div>
+                </div>
+            </div>
+        </div>
+        <div class='mt-10 border-t border-gray-200 pt-6'>
+            <div class='bg-[#D4AF37] p-6 rounded-xl text-white'>
+                <h3 class='text-2xl font-bold mb-3 text-center' style='font-family: Sorts Mill Goudy, serif;'>Conclusiones principales</h3>
+                <div class='grid grid-cols-3 gap-6 text-center'>
+                    <div><p class='text-base' style='font-family: Oranienbaum, serif;'>Uso y utilidad moderados</p></div>
+                    <div><p class='text-base' style='font-family: Oranienbaum, serif;'>Alta percepción de riesgos</p></div>
+                    <div><p class='text-base' style='font-family: Oranienbaum, serif;'>Relación utilidad-uso confirmada</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
