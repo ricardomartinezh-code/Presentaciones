@@ -65,31 +65,37 @@ function generateGraphPage(graph, graphIndex) {
   return `<!DOCTYPE html><html lang='es'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'><title>Gráfica ${graphIndex}</title><script src='https://cdn.tailwindcss.com'></script><script src='https://cdn.plot.ly/plotly-latest.min.js'></script><style type='text/tailwindcss'>@layer utilities { .ppt-slide { @apply relative w-[992px] h-[558px] mx-auto p-[30px] box-border overflow-hidden mb-[40px] bg-[#FAFBFC]; } }</style></head><body class='bg-gray-50 py-8'><div class='ppt-slide flex flex-col justify-center'><div id='${id}' class='w-full h-full'></div></div><script>document.addEventListener('DOMContentLoaded', function () { const data = [{ x: ${JSON.stringify(labels)}, y: ${JSON.stringify(values)}, type: 'bar', marker: { color: '#1B365D' } }]; const layout = { title: 'Gráfica ${graphIndex}', margin: { t: 40, r: 20, b: 60, l: 40 }, yaxis: { title: 'Valor' } }; Plotly.newPlot('${id}', data, layout, { responsive: true }); });<\/script></body></html>`;
 }
 
-// Generate the presentation HTML string. Accepts slides array and array of graph filenames
-function generatePresentation(slides, graphFiles) {
+// Generate the presentation HTML string. Accepts slides array, array of graph filenames, a theme object and a fonts object
+function generatePresentation(slides, graphFiles, theme, fonts) {
   let slideHtml = '';
   let graphCount = 0;
+  const primary = theme.primary;
+  const secondary = theme.secondary;
+  const accent = theme.accent;
+  // Helper to escape single quotes in content
+  const esc = (str) => String(str).replace(/'/g, '&#39;');
   slides.forEach((slide, index) => {
     if (index === 0) {
       // Portada
-      slideHtml += `\n<div class='ppt-slide flex flex-col justify-center' style='background: linear-gradient(135deg, #1B365D 0%, #2C5F7F 100%);'>\n  <div class='w-full text-white'>\n    <h1 class='text-5xl md:text-6xl font-bold mb-6' style='font-family: Sorts Mill Goudy, serif;'>${slide.title || 'Título de la presentación'}</h1>\n    <div class='w-24 h-1 bg-[#D4AF37] mb-8'></div>\n    <p class='text-2xl mb-2' style='font-family: Oranienbaum, serif;'>${slide.content[0] || ''}</p>\n    <p class='text-xl opacity-90' style='font-family: Oranienbaum, serif;'>${slide.content[1] || ''}</p>\n    <p class='text-lg opacity-80 mt-4' style='font-family: Oranienbaum, serif;'>${slide.content[2] || ''}</p>\n  </div>\n</div>`;
+      slideHtml += `\n<div class='ppt-slide flex flex-col justify-center' style='background: linear-gradient(135deg, ${primary} 0%, ${secondary} 100%);'>\n  <div class='w-full text-white'>\n    <h1 class='text-5xl md:text-6xl font-bold mb-6' style='font-family: ${fonts.heading};'>${esc(slide.title || 'Título de la presentación')}</h1>\n    <div class='w-24 h-1' style='background-color: ${accent};' class='mb-8'></div>\n    <p class='text-2xl mb-2' style='font-family: ${fonts.body};'>${esc(slide.content[0] || '')}</p>\n    <p class='text-xl opacity-90' style='font-family: ${fonts.body};'>${esc(slide.content[1] || '')}</p>\n    <p class='text-lg opacity-80 mt-4' style='font-family: ${fonts.body};'>${esc(slide.content[2] || '')}</p>\n  </div>\n</div>`;
     } else {
       // Non-portada slides
-      slideHtml += `\n<div class='ppt-slide flex flex-col'>\n  <h2 class='text-4xl md:text-5xl font-bold text-[#1B365D] mb-6' style='font-family: Sorts Mill Goudy, serif;'>${slide.title}</h2>`;
+      slideHtml += `\n<div class='ppt-slide flex flex-col'>\n  <h2 class='text-4xl md:text-5xl font-bold mb-6' style='color: ${primary}; font-family: ${fonts.heading};'>${esc(slide.title)}</h2>`;
       if (slide.graph) {
         graphCount++;
         const graphFile = graphFiles[graphCount - 1];
-        slideHtml += `\n  <div class='flex flex-1 gap-6'>\n    <div class='w-2/5 flex flex-col justify-center'>\n      <h3 class='text-2xl font-bold text-[#1B365D] mb-3'>${slide.description || ''}</h3>\n      ${slide.content.map(p => `<p class='text-base text-[#2D3748] leading-relaxed mb-2'>${p}</p>`).join('')}\n    </div>\n    <div class='w-3/5 relative'>\n      <div class='preview-container space-y-2' id='preview-container-${graphCount}'></div>\n      <button type='button' class='add-preview absolute top-2 right-2 bg-[#D4AF37] text-white px-2 py-1 text-xs rounded'>Añadir vista previa</button>\n    </div>\n  </div>`;
-        slideHtml += `\n  <input type='hidden' class='graph-file' value='${graphFile}' />`;
+        // Graph slide layout: left column description & content, right column preview container
+        slideHtml += `\n  <div class='flex flex-1 gap-6'>\n    <div class='w-2/5 flex flex-col justify-center'>\n      <h3 class='text-2xl font-bold mb-3' style='color: ${primary}; font-family: ${fonts.heading};'>${esc(slide.description || '')}</h3>\n      ${slide.content.map(p => `<p class='text-base leading-relaxed mb-2' style='color: ${theme.text}; font-family: ${fonts.body};'>${esc(p)}</p>`).join('')}\n    </div>\n    <div class='w-3/5 relative'>\n      <div class='preview-container space-y-2' id='preview-container-${graphCount}'></div>\n      <button type='button' class='add-preview absolute top-2 right-2 text-white px-2 py-1 text-xs rounded' style='background-color: ${accent};'>Añadir vista previa</button>\n    </div>\n  </div>`;
+        slideHtml += `\n  <input type='hidden' class='graph-file' value='${esc(graphFile)}' />`;
       } else {
         slide.content.forEach(p => {
-          slideHtml += `\n  <p class='text-xl text-[#2D3748] leading-relaxed mb-3'>${p}</p>`;
+          slideHtml += `\n  <p class='text-xl leading-relaxed mb-3' style='color: ${theme.text}; font-family: ${fonts.body};'>${esc(p)}</p>`;
         });
       }
       slideHtml += `\n</div>`;
     }
   });
-  // Build final HTML document with preview functionality
+  // Build final HTML document with preview functionality and dynamic theme variables
   const html = `<!DOCTYPE html><html lang='es'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'><title>Presentación generada</title><script src='https://cdn.tailwindcss.com'></script><link href='https://fonts.googleapis.com/css2?family=Coda&family=Oranienbaum&family=Sorts+Mill+Goudy&family=Unna&display=swap' rel='stylesheet'><link href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css' rel='stylesheet'><script src='https://cdn.plot.ly/plotly-latest.min.js'></script><style type='text/tailwindcss'>@layer utilities {.ppt-slide { @apply relative w-[992px] h-[558px] mx-auto p-[30px] box-border overflow-hidden mb-[40px] bg-[#FAFBFC]; }}</style></head><body class='bg-gray-50 py-8'>${slideHtml}<script>(function(){ const slides=document.querySelectorAll('.ppt-slide'); slides.forEach((slide)=>{ const addBtn=slide.querySelector('.add-preview'); if(!addBtn) return; const container=slide.querySelector('.preview-container'); const graphInput=slide.querySelector('.graph-file'); if(!graphInput) return; const graphFile=graphInput.value; function createPreview(){ const wrapper=document.createElement('div'); wrapper.className='relative border rounded overflow-hidden shadow'; wrapper.draggable=true; const iframe=document.createElement('iframe'); iframe.src=graphFile; iframe.className='w-full h-40'; iframe.style.pointerEvents='none'; const removeBtn=document.createElement('button'); removeBtn.textContent='×'; removeBtn.className='absolute top-1 right-1 text-sm bg-red-600 text-white rounded px-1'; removeBtn.onclick=(e)=>{ e.stopPropagation(); wrapper.remove(); }; wrapper.appendChild(iframe); wrapper.appendChild(removeBtn); return wrapper; } // initial preview container.appendChild(createPreview()); // handle drag and drop let dragging=null; container.addEventListener('dragstart',(e)=>{ if(e.target.classList.contains('relative')){ dragging=e.target; e.dataTransfer.effectAllowed='move'; } }); container.addEventListener('dragover',(e)=>{ e.preventDefault(); const after=getDragAfterElement(container,e.clientY); if(!after) container.appendChild(dragging); else container.insertBefore(dragging, after); }); function getDragAfterElement(container,y){ const draggables=[...container.querySelectorAll('.relative:not(.dragging)')]; let closest=null; let closestOffset=-Infinity; draggables.forEach(child=>{ const box=child.getBoundingClientRect(); const offset=y - box.top - box.height / 2; if(offset<0 && offset>closestOffset){ closestOffset=offset; closest=child; } }); return closest; } addBtn.addEventListener('click',()=>{ container.appendChild(createPreview()); }); });})();<\/script></body></html>`;
   return html;
 }
@@ -142,6 +148,21 @@ document.getElementById('chat-form').addEventListener('submit', async function (
   history.appendChild(userMsg);
   // Parse script
   const slides = parseScript(rawScript);
+  // Determine selected theme and fonts
+  const themeValue = document.getElementById('theme-select') ? document.getElementById('theme-select').value : 'default';
+  const fontValue = document.getElementById('font-select') ? document.getElementById('font-select').value : 'default';
+  // Define themes (colores principales, secundarios, acento y texto)
+  const themes = {
+    default: { primary: '#1B365D', secondary: '#2C5F7F', accent: '#D4AF37', text: '#2D3748' },
+    purpura: { primary: '#4B0082', secondary: '#6A0DAD', accent: '#D69E2E', text: '#2D3748' },
+    verde: { primary: '#2F855A', secondary: '#38A169', accent: '#D69E2E', text: '#2D3748' }
+  };
+  const fontsMap = {
+    default: { heading: 'Sorts Mill Goudy, serif', body: 'Oranienbaum, serif' },
+    moderna: { heading: 'Arial, Helvetica, sans-serif', body: 'Arial, Helvetica, sans-serif' }
+  };
+  const theme = themes[themeValue] || themes.default;
+  const fonts = fontsMap[fontValue] || fontsMap.default;
   // Generate graph files and collect HTML strings
   const graphFiles = [];
   const graphsHtml = [];
@@ -154,7 +175,7 @@ document.getElementById('chat-form').addEventListener('submit', async function (
     }
   });
   // Generate presentation
-  const presentationHtml = generatePresentation(slides, graphFiles);
+  const presentationHtml = generatePresentation(slides, graphFiles, theme, fonts);
   // Generate readme
   const readmeContent = generateReadme();
   // Create zip
@@ -162,13 +183,116 @@ document.getElementById('chat-form').addEventListener('submit', async function (
   zip.file('presentacion.html', presentationHtml);
   graphsHtml.forEach(g => zip.file(g.name, g.content));
   zip.file('readme.md', readmeContent);
-  // Generate archive blob
+  // Generate a Blob URL for the presentation so it can be viewed directly
+  const presentationUrl = URL.createObjectURL(new Blob([presentationHtml], { type: 'text/html' }));
+  // Generate archive blob but do not initiate download automatically
   const blob = await zip.generateAsync({ type: 'blob' });
   const zipName = 'reslides_presentacion.zip';
-  const downloadUrl = URL.createObjectURL(blob);
-  // Add system response to history
+  const zipUrl = URL.createObjectURL(blob);
+
+  // Generate PPTX file asynchronously using PptxGenJS if available
+  let pptUrl = null;
+  try {
+    if (typeof PptxGenJS !== 'undefined' || typeof pptxgen !== 'undefined') {
+      // Create a new PPTX presentation
+      const pptx = new (typeof PptxGenJS !== 'undefined' ? PptxGenJS : pptxgen)();
+      // Set 16x9 layout
+      pptx.defineLayout({ name: '16x9', width: 10, height: 5.625 });
+      pptx.layout = '16x9';
+      // Helper to remove leading '#'
+      const strip = (col) => col.replace('#', '');
+      // Iterate slides to build PPT
+      slides.forEach((slide) => {
+        const sld = pptx.addSlide();
+        // Cover slide
+        if (slide === slides[0]) {
+          // Background with primary color
+          sld.background = { color: strip(theme.primary) };
+          // Title text
+          sld.addText(slide.title || 'Título de la presentación', {
+            x: 0.5, y: 1.5, w: 9, h: 1.3,
+            align: pptx.AlignH.center,
+            fontSize: 32,
+            color: 'FFFFFF',
+            bold: true,
+            fontFace: fonts.heading
+          });
+          // Subtitle lines (first three content elements)
+          const lines = [];
+          if (slide.content[0]) lines.push(slide.content[0]);
+          if (slide.content[1]) lines.push(slide.content[1]);
+          if (slide.content[2]) lines.push(slide.content[2]);
+          if (lines.length > 0) {
+            sld.addText(lines.join('\n'), {
+              x: 1, y: 3, w: 8, h: 2,
+              align: pptx.AlignH.center,
+              fontSize: 16,
+              color: strip(theme.accent),
+              fontFace: fonts.body
+            });
+          }
+        } else {
+          // Normal slides
+          sld.background = { color: 'FAFBFC' };
+          // Title
+          sld.addText(slide.title || '', {
+            x: 0.5, y: 0.5, w: 9, h: 0.8,
+            fontSize: 24,
+            bold: true,
+            color: strip(theme.primary),
+            fontFace: fonts.heading
+          });
+          // If slide has graph
+          if (slide.graph) {
+            // Description and content on left side
+            const yStart = 1.5;
+            let textRuns = [];
+            if (slide.description) {
+              textRuns.push({ text: slide.description + '\n', options: { fontSize: 16, bold: true, color: strip(theme.primary), fontFace: fonts.heading } });
+            }
+            slide.content.forEach((p) => {
+              textRuns.push({ text: '\u2022 ' + p + '\n', options: { fontSize: 14, color: strip(theme.text), fontFace: fonts.body } });
+            });
+            sld.addText(textRuns, { x: 0.5, y: yStart, w: 5.0, h: 3.0, margin: 0.1, wrap: true });
+            // Chart on right side
+            const dataChart = [ { name: slide.title || '', labels: slide.graph.labels, values: slide.graph.values } ];
+            sld.addChart(pptx.ChartType.bar, dataChart, {
+              x: 5.5, y: 1.5, w: 4.0, h: 3.0,
+              barDir: 'col',
+              chartColors: [ strip(theme.primary) ],
+              catAxisLabelFontFace: fonts.body,
+              catAxisLabelColor: strip(theme.primary),
+              valAxisLabelColor: strip(theme.primary),
+              valAxisLineColor: strip(theme.primary),
+              catAxisLineColor: strip(theme.primary),
+              valAxisMajorGridLine: { style: 'solid', color: 'DDDDDD' },
+              showLegend: false
+            });
+          } else {
+            // Only content bullet points
+            const textRuns = [];
+            slide.content.forEach((p) => {
+              textRuns.push({ text: '\u2022 ' + p + '\n', options: { fontSize: 16, color: strip(theme.text), fontFace: fonts.body } });
+            });
+            sld.addText(textRuns, { x: 0.5, y: 1.5, w: 9.0, h: 4.0, wrap: true });
+          }
+        }
+      });
+      const pptBlob = await pptx.write('blob');
+      pptUrl = URL.createObjectURL(pptBlob);
+    }
+  } catch (err) {
+    console.error('Error generating PPT:', err);
+  }
+  // Add system response to history with view and download options
   const botMsg = createElement('div', 'bg-white rounded-lg p-3 border');
-  botMsg.innerHTML = `<p class='font-semibold mb-1 text-[#1B365D]'>ReSlides:</p><p class='text-sm'>Presentación generada con éxito. Descarga el archivo ZIP y abre <code>presentacion.html</code> para verla.</p><a href='${downloadUrl}' download='${zipName}' class='text-blue-600 underline text-sm'>Descargar presentación ZIP</a>`;
+  botMsg.innerHTML =
+    `<p class='font-semibold mb-1' style='color: ${theme.primary};'>ReSlides:</p>` +
+    `<p class='text-sm'>Presentación generada con éxito. Puedes verla directamente, previsualizarla o descargarla para guardarla en tu equipo.</p>` +
+    `<p class='mt-2'><a href='${presentationUrl}' target='_blank' class='text-blue-600 underline text-sm'>Abrir en nueva pestaña</a></p>` +
+    `<p class='mt-1'><a href='${zipUrl}' download='${zipName}' class='text-blue-600 underline text-sm'>Descargar paquete ZIP</a></p>` +
+    (pptUrl ? `<p class='mt-1'><a href='${pptUrl}' download='reslides_presentacion.pptx' class='text-blue-600 underline text-sm'>Descargar PPTX</a></p>` : '') +
+    `<div class='mt-3'>\n      <p class='text-xs mb-1'>Vista previa:</p>\n      <iframe src='${presentationUrl}' class='w-full h-64 border rounded-md'></iframe>\n    </div>`;
   history.appendChild(botMsg);
   // Show files section and list file names
   const filesSection = document.getElementById('files');

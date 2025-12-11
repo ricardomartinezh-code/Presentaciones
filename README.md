@@ -1,6 +1,6 @@
 # ReSlides Web App
 
-**ReSlides** es una aplicación web sencilla que convierte un guion de diapositivas en una presentación HTML completamente estilizada, utilizando la plantilla profesional analizada en este proyecto. Permite generar páginas de gráficas interactivas y empaquetar todo en un archivo ZIP listo para descargar.
+**ReSlides** es una aplicación web sencilla que convierte un guion de diapositivas en una presentación completa. Utiliza la plantilla profesional analizada en este proyecto y permite generar páginas de gráficas interactivas, una presentación HTML lista para ver o descargar, así como una versión PPTX para uso en Microsoft PowerPoint. Todas las salidas se empaquetan en un archivo ZIP listo para descargar si lo deseas.
 
 ## Estructura del proyecto
 
@@ -12,15 +12,18 @@
 
 1. Abre `index.html` en tu navegador.
 2. Escribe tu guion en el área de texto siguiendo el formato de ejemplo. Cada diapositiva empieza con `Diapositiva N`. Utiliza `Título:`, `Contenido:` y `Datos:` para definir el título, texto y datos de gráficas respectivamente. Separa los puntos de `Contenido` con punto y coma `;`. Para los datos de gráficas usa `Labels:` y `Valores:` separados por punto y coma.
-3. Pulsa **Enviar**. La aplicación procesará el guion y generará una carpeta virtual con los siguientes archivos:
-   - `presentacion.html` — La presentación principal con tus diapositivas y miniaturas de gráficas personalizables.
+3. Elige un **tema de color** y una **tipografía** en los selectores de personalización (opcional). Estos valores se aplicarán a tu presentación.
+4. Pulsa **Enviar**. La aplicación procesará el guion y generará los siguientes recursos:
+   - `presentacion.html` — La presentación principal con tus diapositivas y miniaturas de gráficas personalizables. Se mostrará una vista previa directamente en la página.
    - `grafica*.html` — Una página HTML por cada gráfica incluida en tu guion.
+   - `presentacion.pptx` — Una presentación de PowerPoint que refleja el mismo contenido y esquema de colores seleccionados.
    - `readme.md` — Instrucciones de uso básicas generadas automáticamente.
-4. Descarga el archivo ZIP y ábrelo. Extrae el contenido y abre `presentacion.html` para ver tu presentación. Puedes mover, eliminar o duplicar las vistas previas de las gráficas dentro de la propia presentación.
+5. Podrás **ver la presentación** en una nueva pestaña, **previsualizarla** directamente en la interfaz y descargar un **ZIP** con todos los archivos (HTML, PPTX y Readme) cuando lo desees.
+6. También puedes descargar únicamente la presentación en **formato PPTX** para abrirla en Microsoft PowerPoint o similar.
 
-## Funcionalidades de vistas previas
+## Personalización y vistas previas
 
-En las diapositivas que contienen una gráfica, la columna derecha muestra una o más miniaturas de la página de la gráfica. Puedes:
+La aplicación permite ajustar el **tema de color** y la **tipografía** de la presentación mediante desplegables en la página principal. En las diapositivas que contienen una gráfica, la columna derecha muestra una o más miniaturas de la página de la gráfica. Puedes:
 
 - **Añadir más vistas previas** con el botón “Añadir vista previa”.
 - **Eliminar** una vista previa haciendo clic en la `×` roja de la esquina.
